@@ -29,8 +29,16 @@ function displayClock()
             ws2812_effects.set_mode("larson_scanner")
             ws2812_effects.start()
      end
-     if clockState > 3 then
-        if oldState < 4 then
+    if clockState == 4 and oldState~=4 then
+             ws2812_effects.stop()
+             ws2812_effects.set_speed(250)
+            ws2812_effects.set_brightness(50)
+            ws2812_effects.set_color(255, 255, 255)
+            ws2812_effects.set_mode("larson_scanner")
+            ws2812_effects.start()
+     end
+     if clockState > 4 then
+        if oldState < 5 then
             ws2812_effects.stop()
         end
 
@@ -61,8 +69,8 @@ function displayClock()
         MBits = {15,28}
         SBits = {29,42}
         
-        --bitArray[1] = bit.isset(numbers[1], 3)
-        --bitArray[3] = bit.isset(numbers[1], 2)
+        bitArray[1] = bit.isset(numbers[1], 3)
+        bitArray[3] = bit.isset(numbers[1], 2)
         bitArray[5] = bit.isset(numbers[1], 1)
         bitArray[7] = bit.isset(numbers[1], 0)
 
@@ -121,8 +129,8 @@ function displayClock()
         bitArray[33] = bit.isset(numbers[2], 2)
         bitArray[35] = bit.isset(numbers[2], 3)
 
-        --bitArray[36] = bit.isset(numbers[1], 3)
-        --bitArray[38] = bit.isset(numbers[1], 2)
+        bitArray[36] = bit.isset(numbers[1], 3)
+        bitArray[38] = bit.isset(numbers[1], 2)
         bitArray[40] = bit.isset(numbers[1], 1)
         bitArray[42] = bit.isset(numbers[1], 0)
         statusLed = 36
@@ -180,17 +188,17 @@ function displayClock()
                 end               
             end
         end
-
-        if clockState == 5 then
+ 
+        if clockState == 6 then
             if iteration % 3 == 0 then
-                strip_buffer:set(statusLed, 0, 0, 7)
+                strip_buffer:set(statusLed, 0, 0, 20)
             --- else
             ---     strip_buffer:set(7, 0, 2, 0)
             end
         end
-        if clockState == 6 then
+        if clockState == 7 then
             if iteration % 3 == 0 then
-                strip_buffer:set(statusLed, 7, 0, 0)
+                strip_buffer:set(statusLed, 20, 0, 0)
             --- else
             ---     strip_buffer:set(7, 0, 2, 0)
             end
