@@ -18,3 +18,19 @@ Day = 7
 Night = 21
 
 topToBottom = false
+
+
+resyncH = 4
+resyncM = 0
+resyncS = 0
+
+
+autoTZ = true
+httpFallback = true
+
+displayDate = false
+displayWeekday = true
+
+if file.exists("userConfig.lua") then
+    dofile("userConfig.lua")
+end

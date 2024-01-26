@@ -42,14 +42,28 @@ function displayClock()
             ws2812_effects.stop()
         end
 
-        tm = rtctime.epoch2cal(rtctime.get())
+        secondsOffset = TZHour*3600+TZMin*60
+        tm = rtctime.epoch2cal(rtctime.get()+secondsOffset)
 
         numbers = {}
 
-        hour = tm["hour"] + TZHour
-        min = tm["min"] + TZMin
+        hour = tm["hour"]
+        min = tm["min"]
         sec = tm["sec"]
 
+        if hour == resyncH and min == resyncM and sec == resyncS and doResync == true then sync() end 
+        isDayNow = isDay(hour)
+
+        if displayDate then
+            hour = tm["day"]
+            min = tm["mon"]
+            sec = tm["year"]-2000
+            if displayWeekday then
+                sec = tm["wday"]-1
+            end
+        end
+
+ 
         numbers[1] = hour / 10
         numbers[2] = hour % 10
         numbers[3] = min / 10
@@ -141,13 +155,13 @@ function displayClock()
             if (bitArray[i] == 1) then
                 strip_buffer:set(i, 0, 0, 0)
             elseif (bitArray[i] == false) then
-                if isDay(hour) then
+                if isDayNow then
                   strip_buffer:set(i, dBGHour[2], dBGHour[1], dBGHour[3])
                 else
                   strip_buffer:set(i, BGHour[2], BGHour[1], BGHour[3])
                 end               
             else
-                if isDay(hour) then
+                if isDayNow then
                   strip_buffer:set(i, dFGHour[2], dFGHour[1], dFGHour[3])
                 else
                   strip_buffer:set(i, FGHour[2], FGHour[1], FGHour[3])
@@ -158,13 +172,13 @@ function displayClock()
             if (bitArray[i] == 1) then
                 strip_buffer:set(i, 0, 0, 0)
             elseif (bitArray[i] == false) then
-                if isDay(hour) then
+                if isDayNow then
                   strip_buffer:set(i, dBGMin[2], dBGMin[1], dBGMin[3])
                 else
                   strip_buffer:set(i, BGMin[2], BGMin[1], BGMin[3])
                 end               
              else
-                if isDay(hour) then
+                if isDayNow then
                   strip_buffer:set(i, dFGMin[2], dFGMin[1], dFGMin[3])
                 else
                   strip_buffer:set(i, FGMin[2], FGMin[1], FGMin[3])
@@ -175,13 +189,13 @@ function displayClock()
             if (bitArray[i] == 1) then
                 strip_buffer:set(i, 0, 0, 0)
             elseif (bitArray[i] == false) then
-                if isDay(hour) then
-                  strip_buffer:set(i, dBGSec[2], dBGSec[1], dBGSec[3])
+                if isDayNow then
+                 strip_buffer:set(i, dBGSec[2], dBGSec[1], dBGSec[3])
                 else
                   strip_buffer:set(i, BGSec[2], BGSec[1], BGSec[3])
                 end               
            else
-               if isDay(hour) then
+                if isDayNow then
                   strip_buffer:set(i, dFGSec[2], dFGSec[1], dFGSec[3])
                 else
                   strip_buffer:set(i, FGSec[2], FGSec[1], FGSec[3])
@@ -190,14 +204,14 @@ function displayClock()
         end
  
         if clockState == 6 then
-            if iteration % 3 == 0 then
+            if iteration % 10 >= 5 then
                 strip_buffer:set(statusLed, 0, 0, 20)
             --- else
             ---     strip_buffer:set(7, 0, 2, 0)
             end
         end
         if clockState == 7 then
-            if iteration % 3 == 0 then
+            if iteration % 10 >= 5 then
                 strip_buffer:set(statusLed, 20, 0, 0)
             --- else
             ---     strip_buffer:set(7, 0, 2, 0)
@@ -213,6 +227,6 @@ oldState = 0
 iteration = 0
 
 displayTimer = tmr.create()
-displayTimer:register(200, tmr.ALARM_AUTO, displayClock)
-displayTimer:interval(200)
+displayTimer:register(50, tmr.ALARM_AUTO, displayClock)
+displayTimer:interval(50)
 displayTimer:start()

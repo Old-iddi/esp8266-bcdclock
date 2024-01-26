@@ -1,10 +1,12 @@
 ssid = "<ssid>"
 pwd = "<passwd>"
 ntp = { "ru.pool.ntp.org", "192.168.1.1" }
-hostname = "BCDClock-01"
+hostname = "BCDClock-04"
 
 -- my private file with wifi credentials
-dofile("my.netconf.lua")
+if file.exists("my.netconf.lua") then
+    dofile("my.netconf.lua")
+end
 if file.exists("eus_params.lua") then
     p = dofile("eus_params.lua")
     ssid = p.wifi_ssid
