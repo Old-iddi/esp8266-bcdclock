@@ -1,7 +1,7 @@
 ssid = "<ssid>"
 pwd = "<passwd>"
 ntp = { "ru.pool.ntp.org", "192.168.1.1" }
-hostname = "BCDClock-04"
+hostname = "BCDClock-06"
 
 -- my private file with wifi credentials
 if file.exists("my.netconf.lua") then

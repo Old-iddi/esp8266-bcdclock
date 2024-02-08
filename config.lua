@@ -1,11 +1,11 @@
 TZHour = 3
 TZMin = 0
-BGHour = { 3,0,0 }
-BGMin = { 3,0,0 }
-BGSec = { 3,0,0 }
-FGHour = { 15,8,2 }
-FGMin = { 15,8,2 }
-FGSec = { 15,8,2 }
+BGHour = { 1,0,0 }
+BGMin = { 1,0,0 }
+BGSec = { 1,0,0 }
+FGHour = { 7,4,1 }
+FGMin = { 7,4,1 }
+FGSec = { 7,4,1 }
 
 dBGHour = { 20,0,0 }
 dBGMin = { 20,0,0 }
