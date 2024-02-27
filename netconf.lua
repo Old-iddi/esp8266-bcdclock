@@ -1,5 +1,5 @@
-ssid = "<ssid>"
-pwd = "<passwd>"
+ssid = ""
+pwd = ""
 ntp = { "ru.pool.ntp.org", "192.168.1.1" }
 hostname = "BCDClock-06"
 

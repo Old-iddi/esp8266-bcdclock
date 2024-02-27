@@ -34,6 +34,12 @@ function startAp()
 end
 
 function myConnect()
+    if( ssid == "" ) then
+        clockState = 2
+        successConnectTimer:register(1000, tmr.ALARM_SINGLE, startAp)
+        successConnectTimer:start()
+        return
+    end
     successConnectTimer:stop()
     connectattempt:stop()
     wifi.setmode(wifi.STATION)
