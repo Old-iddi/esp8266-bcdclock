@@ -1,6 +1,6 @@
 ssid = ""
 pwd = ""
-ntp = { "ru.pool.ntp.org", "192.168.1.1" }
+ntp = { "ntp.msk-ix.ru","ru.pool.ntp.org" }
 hostname = "BCDClock-06"
 
 -- my private file with wifi credentials

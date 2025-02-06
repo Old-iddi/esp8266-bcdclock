@@ -10,4 +10,4 @@ cut strip to 7 segments and connect them to each other (do not solder in place, 
 
 <img src="scheme.jpg" alt="clock image">
 
-upload nodemcu firmware via esptool.py and lua files with ESPlorer.jar
+upload nodemcu firmware via esptool.py and lua files with <a href="https://esp8266.ru/category/esplorer-info/">ESPlorer.jar</a>

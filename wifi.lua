@@ -2,24 +2,33 @@ function apSuccess()
     wifi.sta.disconnect()
     clockState = 2
     print("ap success")
-    dofile("netconf.lua")
-    successConnectTimer:register(500, tmr.ALARM_SINGLE, endPortal)
-    successConnectTimer:start()
-    connectattempt:register(1500, tmr.ALARM_SINGLE, myConnect)
-    connectattempt:start()
+    node.restart()
+    --dofile("netconf.lua")
+    --successConnectTimer:stop()
+    --successConnectTimer:register(500, tmr.ALARM_SINGLE, endPortal)
+    --successConnectTimer:start()
+    --connectattempt:register(1500, tmr.ALARM_SINGLE, myConnect)
+    --connectattempt:start()
 end
 
 function endPortal()
     enduser_setup.stop()
 end
 
+function onPortalError(err,str)
+    node.restart()
+end
+
 function restartPortal()
-    enduser_setup.stop()
-    connectattempt:register(1000, tmr.ALARM_SINGLE, myConnect)
-    connectattempt:start()
+    node.restart()
+    --enduser_setup.stop()
+    --connectattempt:register(1000, tmr.ALARM_SINGLE, myConnect)
+    --connectattempt:start()
 end
 
 function startAp()
+    successConnectTimer:stop()
+    connectattempt:stop()
     wifi.sta.sethostname(hostname)
     wifi.sta.disconnect()
     clockState = 4
@@ -28,17 +37,19 @@ function startAp()
     wifi.eventmon.register(wifi.eventmon.STA_GOT_IP, nil)
     wifi.ap.config({ssid = hostname, pwd = "123321123", auth = wifi.WPA2_PSK})
     enduser_setup.manual(true)
-    enduser_setup.start(apSuccess, nil)
-    successConnectTimer:register(60000, tmr.ALARM_SINGLE, restartPortal)
+    enduser_setup.start(apSuccess, onPortalError)
+    successConnectTimer:register(90000, tmr.ALARM_SINGLE, restartPortal)
     successConnectTimer:start()
 end
 
 function myConnect()
     if( ssid == "" ) then
         clockState = 2
-        successConnectTimer:register(1000, tmr.ALARM_SINGLE, startAp)
-        successConnectTimer:start()
+        startAp()
         return
+        ---successConnectTimer:register(1000, tmr.ALARM_SINGLE, startAp)
+        --successConnectTimer:start()
+        --return
     end
     successConnectTimer:stop()
     connectattempt:stop()
