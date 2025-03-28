@@ -1,6 +1,8 @@
 if displayTimer then displayTimer:stop() end
 
-function isDay( hr ) 
+function isDay( hr, wk ) 
+   Day = DayOnWeekdays[wk]
+   Night =  NightOnWeekdays[wk]
    if Day < Night then
       return hr >= Day and hr < Night
    elseif Day > Night then
@@ -50,16 +52,17 @@ function displayClock()
         hour = tm["hour"]
         min = tm["min"]
         sec = tm["sec"]
+        wday = tm["wday"]
 
         if hour == resyncH and min == resyncM and sec == resyncS and doResync == true then sync() end 
-        isDayNow = isDay(hour)
+        isDayNow = isDay(hour,wday)
 
         if displayDate then
             hour = tm["day"]
             min = tm["mon"]
             sec = tm["year"]-2000
             if displayWeekday then
-                sec = tm["wday"]-1
+                sec = wday-1
             end
         end
 

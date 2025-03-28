@@ -14,8 +14,8 @@ dFGHour = { 255,255,255 }
 dFGMin = { 255,255,255 }
 dFGSec = { 255,255,255 }
 
-Day = 7
-Night = 21
+DayOnWeekdays = { 8,7,7,7,7,7,8 }
+NightOnWeekdays = { 21,21,21,21,21,21,21 }
 
 topToBottom = false
 

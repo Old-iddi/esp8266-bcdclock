@@ -14,8 +14,8 @@ dFGHour = { 25,20,0 }
 dFGMin = { 25,20,0 }
 dFGSec = { 25,20,0 }
 
-Day = 7
-Night = 21
+DayOnWeekdays = { 8,7,7,7,7,7,8 }
+NightOnWeekdays = { 21,21,21,21,21,21,21 }
 
 topToBottom = false
 displayDate = true

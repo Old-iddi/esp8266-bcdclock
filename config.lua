@@ -14,11 +14,10 @@ dFGHour = { 80,80,80 }
 dFGMin = { 80,80,80 }
 dFGSec = { 80,80,80 }
 
-Day = 7
-Night = 21
+DayOnWeekdays = { 8,7,7,7,7,7,8 }
+NightOnWeekdays = { 21,21,21,21,21,21,21 }
 
 topToBottom = false
-
 
 resyncH = 4
 resyncM = 0
