@@ -36,8 +36,9 @@ Instructions for configuring userConfig.lua
   - dFGSec = { 255,255,255 }   # Digit color for seconds
 
 4. Day/Night Time Settings:
-  - Day = 7     # Hour when day mode starts (7:00)
-  - Night = 21  # Hour when night mode starts (21:00)
+  - DayOnWeekdays = { 8,7,7,7,7,7,8 }
+  - NightOnWeekdays = { 21,21,21,21,21,21,21 }
+
 
 5. Display Orientation:
   - topToBottom = false  # false = top to bottom, true = bottom to top
